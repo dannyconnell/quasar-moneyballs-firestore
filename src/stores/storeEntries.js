@@ -37,6 +37,8 @@ export const useStoreEntries = defineStore('entries', () => {
       // },
     ])
 
+    const entriesLoaded = ref(false)
+
     const options = reactive({
       sort: false
     })
@@ -79,21 +81,17 @@ export const useStoreEntries = defineStore('entries', () => {
   */
   
     const loadEntries = async () => {
-      // const querySnapshot = await getDocs(collection(db, 'entries'))
-      // querySnapshot.forEach((doc) => {
-      //   // doc.data() is never undefined for query doc snapshots
-      //   // console.log(doc.id, ' => ', doc.data())
-      //   let entry = doc.data()
-      //   entries.value.push(entry)
-      // })
-
+      entriesLoaded.value = false
       onSnapshot(collection(db, 'entries'), (querySnapshot) => {
         let entriesFB = []
         querySnapshot.forEach((doc) => {
           let entry = doc.data()
           entriesFB.push(entry)
         })
-        entries.value = entriesFB
+        setTimeout(() => {
+          entries.value = entriesFB
+          entriesLoaded.value = true
+        }, 1000)
       })
     }
 
@@ -154,6 +152,7 @@ export const useStoreEntries = defineStore('entries', () => {
 
       // state
       entries,
+      entriesLoaded,
       options,
 
       // getters
