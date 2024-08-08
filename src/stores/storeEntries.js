@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive, nextTick } from 'vue'
 import { uid, Notify } from 'quasar'
-import { collection, onSnapshot, addDoc } from 'firebase/firestore'
+import { collection, onSnapshot, addDoc, doc, deleteDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
 const entriesCollectionRef = collection(db, 'entries')
@@ -102,9 +102,8 @@ export const useStoreEntries = defineStore('entries', () => {
       await addDoc(entriesCollectionRef, newEntry)
     }
 
-    const deleteEntry = entryId => {
-      const index = getEntryIndexById(entryId)
-      entries.value.splice(index, 1)
+    const deleteEntry = async entryId => {
+      await deleteDoc(doc(entriesCollectionRef, entryId))
       removeSlideItemIfExists(entryId)
       Notify.create({
         message: 'Entry deleted',
