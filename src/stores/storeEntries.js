@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive, nextTick } from 'vue'
 import { uid, Notify } from 'quasar'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
 export const useStoreEntries = defineStore('entries', () => {
@@ -77,8 +78,14 @@ export const useStoreEntries = defineStore('entries', () => {
     actions
   */
   
-    const loadEntries = () => {
-      console.log('get entries from firebase')
+    const loadEntries = async () => {
+      const querySnapshot = await getDocs(collection(db, 'entries'))
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, ' => ', doc.data())
+        let entry = doc.data()
+        entries.value.push(entry)
+      })
     }
 
     const addEntry = addEntryForm => {
