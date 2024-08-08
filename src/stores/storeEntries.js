@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive, watch, nextTick } from 'vue'
 import { uid, Notify, LocalStorage } from 'quasar'
+import { db } from 'src/firebase/firebase'
 
 export const useStoreEntries = defineStore('entries', () => {
 
