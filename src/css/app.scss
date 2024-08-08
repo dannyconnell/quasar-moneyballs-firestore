@@ -1,0 +1,80 @@
+// global
+.letter-spacing-none {
+  letter-spacing: 0;
+}
+
+// dark overrides
+.body--dark {
+  .bg-primary, .q-layout__section--marginal {
+    background-color: $primary-dark !important;
+  }
+  .q-drawer {
+    border: none;
+  }
+}
+
+// drawer nav
+.q-drawer {
+  .q-item {
+    opacity: 0.6;
+    &.q-router-link--exact-active {
+      opacity: 1;
+    }
+  }
+}
+
+// number inputs
+input::-webkit-outer-spin-button, 
+input::-webkit-inner-spin-button {
+  margin-left: 10px;
+}
+
+// q-popup-edit-buttons
+.q-popup-edit__buttons {
+  .q-btn {
+    text-transform: none;
+  }
+}
+
+// entries
+.entries {
+  .q-slide-item {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    .body--dark & {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    &:not(:first-child) {
+      margin-top: -1px;
+    }
+  }
+  .sortable-ghost {
+    opacity: 0;
+  }
+  .running-balance {
+    right: -5px;
+    bottom: -9px;
+  }
+}
+
+// ios header & footer notch padding
+.platform-ios {
+  .q-header {
+    .toolbar-title-text {
+      padding-top: constant(safe-area-inset-top); // for iOS 11.0
+      padding-top: env(safe-area-inset-top); // for iOS 11.2 +
+    }
+  }
+  .q-footer {
+    .q-form {
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+}
+
+// add entry form
+.add-entry-form {
+  .q-field--error .q-field__bottom {
+    color: $negative-light;
+  }
+}
