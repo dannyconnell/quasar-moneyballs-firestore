@@ -61,18 +61,10 @@
   */
   
     import { ref, computed, reactive } from 'vue'
-    import { useRouter } from 'vue-router'
     import { useQuasar } from 'quasar'
     import { useStoreAuth } from 'src/stores/storeAuth'
     import { useLightOrDark } from 'src/use/useLightOrDark'
     import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
-
-
-  /*
-    router
-  */
-  
-    const router = useRouter()  
 
 
   /*
@@ -133,7 +125,6 @@
       else {
         storeAuth.loginUser(credentials)
       }
-      router.push('/')
     }
 
 </script>

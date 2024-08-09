@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { Dialog } from 'quasar'
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { auth } from 'src/firebase/firebase'
@@ -26,15 +27,18 @@ export const useStoreAuth = defineStore('auth', () => {
   */
   
     const init = () => {
-      const storeEntries = useStoreEntries()
+      const router = useRouter(),
+            storeEntries = useStoreEntries()
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
           userDetails.id = user.uid
           userDetails.email = user.email
+          router.push('/')
           storeEntries.loadEntries()
         } else {
           Object.assign(userDetails, userDetailsDefault)
+          router.replace('/auth')
         }
       })
     }
