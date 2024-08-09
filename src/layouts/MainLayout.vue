@@ -13,14 +13,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          <div class="absolute-center">
-            <div class="toolbar-title-text">
-              <q-icon name="savings" /> 
-              Moneyballs
-            </div>
-          </div>
-        </q-toolbar-title>
+        <ToolbarTitle />
 
         <q-btn 
           v-if="$route.fullPath === '/'"
@@ -87,6 +80,7 @@ import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 import { useStoreEntries } from 'src/stores/storeEntries'
 import { useLightOrDark } from 'src/use/useLightOrDark'
+import ToolbarTitle from 'components/Layout/ToolbarTitle.vue'
 import NavLink from 'components/Nav/NavLink.vue'
 
 defineOptions({
