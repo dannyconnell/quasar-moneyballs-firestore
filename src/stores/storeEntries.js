@@ -140,8 +140,11 @@ export const useStoreEntries = defineStore('entries', () => {
   */
   
     const generateOrderNumber = () => {
-      const orderNumbers = entries.value.map(entry => entry.order)
-      return Math.max(...orderNumbers) + 1
+      const orderNumbers = entries.value.map(entry => entry.order),
+            newOrderNumber = orderNumbers.length
+                             ? Math.max(...orderNumbers) + 1
+                             : 1
+      return newOrderNumber
     }
 
     const removeSlideItemIfExists = entryId => {
