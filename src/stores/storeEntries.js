@@ -17,25 +17,29 @@ export const useStoreEntries = defineStore('entries', () => {
       //   id: 'id1',
       //   name: 'Salary',
       //   amount: 4999.99,
-      //   paid: true
+      //   paid: true,
+      //   order: 1
       // },
       // {
       //   id: 'id2',
       //   name: 'Rent',
       //   amount: -999,
-      //   paid: false
+      //   paid: false,
+      //   order: 2
       // },
       // {
       //   id: 'id3',
       //   name: 'Phone bill',
       //   amount: -14.99,
-      //   paid: false
+      //   paid: false,
+      //   order: 3
       // },
       // {
       //   id: 'id4',
       //   name: 'Unknown',
       //   amount: 0,
-      //   paid: false
+      //   paid: false,
+      //   order: 4
       // },
     ])
 
@@ -50,6 +54,10 @@ export const useStoreEntries = defineStore('entries', () => {
     getters
   */
   
+    const entriesOrdered = computed(() => {
+      return entries.value.sort((a, b) => a.order - b.order)
+    })
+
     const balance = computed(() => {
       return entries.value.reduce((accumulator, { amount }) => {
         return accumulator + amount
@@ -155,6 +163,7 @@ export const useStoreEntries = defineStore('entries', () => {
       options,
 
       // getters
+      entriesOrdered,
       balance,
       balancePaid,
       runningBalances,
