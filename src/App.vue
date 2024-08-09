@@ -7,20 +7,20 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useStoreSettings } from 'src/stores/storeSettings'
-import { useStoreEntries } from 'src/stores/storeEntries'
+import { useStoreAuth } from 'src/stores/storeAuth'
 
 defineOptions({
   name: 'App'
 });
 
 const storeSettings = useStoreSettings(),
-      storeEntries = useStoreEntries(),
+      storeAuth = useStoreAuth(),
       $q = useQuasar(),
       router = useRouter()
 
 onMounted(() => {
+  storeAuth.init()
   storeSettings.loadSettings()
-  storeEntries.loadEntries()
 
   if ($q.platform.is.electron) {
     ipcRenderer.on('show-settings', () => {
