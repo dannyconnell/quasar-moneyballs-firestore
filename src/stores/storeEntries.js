@@ -105,7 +105,12 @@ export const useStoreEntries = defineStore('entries', () => {
     }
 
     const addEntry = async addEntryForm => {
-      const newEntry = Object.assign({}, addEntryForm, { paid: false })
+      const newEntry = Object.assign({}, addEntryForm, 
+        { 
+          paid: false,
+          order: generateOrderNumber()
+        }
+      )
       if (newEntry.amount ===  null) newEntry.amount = 0
       await addDoc(entriesCollectionRef, newEntry)
     }
@@ -134,8 +139,9 @@ export const useStoreEntries = defineStore('entries', () => {
     helpers
   */
   
-    const getEntryIndexById = entryId => {
-      return entries.value.findIndex(entry => entry.id === entryId)
+    const generateOrderNumber = () => {
+      const orderNumbers = entries.value.map(entry => entry.order)
+      return Math.max(...orderNumbers) + 1
     }
 
     const removeSlideItemIfExists = entryId => {
