@@ -93,7 +93,7 @@
     tabs
   */
   
-    const tab = ref('register') // TODO: change this back to 'login'
+    const tab = ref('login')
 
 
   /*
@@ -131,7 +131,7 @@
         storeAuth.registerUser(credentials)
       }
       else {
-        console.log('Login user with these credentials:', credentials)
+        storeAuth.loginUser(credentials)
       }
       router.push('/')
     }
