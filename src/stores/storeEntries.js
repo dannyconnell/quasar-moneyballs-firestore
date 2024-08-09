@@ -128,10 +128,23 @@ export const useStoreEntries = defineStore('entries', () => {
       await updateDoc(doc(entriesCollectionRef, entryId), updates)
     }
 
+    const updateEntryOrderNumbers = () => {
+      let currentOrder = 1
+      entries.value.forEach(entry => {
+        entry.order = currentOrder
+        currentOrder++
+      })
+
+      entries.value.forEach(entry => {
+        updateEntry(entry.id, { order: entry.order })
+      })
+    }
+
     const sortEnd = ({ oldIndex, newIndex }) => {
       const movedEntry = entries.value[oldIndex]
       entries.value.splice(oldIndex, 1)
       entries.value.splice(newIndex, 0, movedEntry)
+      updateEntryOrderNumbers()
     }
 
 
