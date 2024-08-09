@@ -18,8 +18,11 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form>
+        <q-form
+          @submit="formSubmit"
+        >
           <q-input
+            v-model="credentials.email"
             class="q-mb-md"
             :bg-color="useLightOrDark('white', 'black')"
             label="Email"
@@ -28,6 +31,7 @@
             filled
           />
           <q-input
+            v-model="credentials.password"
             class="q-mb-md"
             :bg-color="useLightOrDark('white', 'black')"
             label="Password"
@@ -36,10 +40,10 @@
             filled
           />
           <q-btn
-            to="/"
             class="full-width"
             color="white"
-            label="Submit"
+            type="submit"
+            :label="submitButtonTitle"
             outline
             no-caps
           />
@@ -56,15 +60,72 @@
     imports
   */
   
-    import { ref } from 'vue'
+    import { ref, computed, reactive } from 'vue'
+    import { useRouter } from 'vue-router'
+    import { useQuasar } from 'quasar'
     import { useLightOrDark } from 'src/use/useLightOrDark'
     import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 
+
+  /*
+    router
+  */
   
+    const router = useRouter()  
+
+
+  /*
+    quasar
+  */
+  
+    const $q = useQuasar()
+
+
   /*
     tabs
   */
   
     const tab = ref('login')
+
+
+  /*
+    submit button title
+  */
+  
+    const submitButtonTitle = computed(() => {
+      return tab.value === 'login' ? 'Login' : 'Register'
+    })
+
+
+  /*
+    form
+  */
+  
+    const credentials = reactive({
+      email: '',
+      password: ''
+    })
+
+    const formSubmit = () => {
+      if (!credentials.email || !credentials.password) {
+        $q.dialog({
+          title: 'Error',
+          message: 'Please enter an email & password motherflipper!'
+        })
+      }
+      else {
+        formSubmitSuccess()
+      }
+    }
+
+    const formSubmitSuccess = () => {
+      if (tab.value === 'register') {
+        console.log('Register user with these credentials:', credentials)
+      }
+      else {
+        console.log('Login user with these credentials:', credentials)
+      }
+      router.push('/')
+    }
 
 </script>
