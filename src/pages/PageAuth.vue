@@ -63,6 +63,7 @@
     import { ref, computed, reactive } from 'vue'
     import { useRouter } from 'vue-router'
     import { useQuasar } from 'quasar'
+    import { useStoreAuth } from 'src/stores/storeAuth'
     import { useLightOrDark } from 'src/use/useLightOrDark'
     import ToolbarTitle from 'src/components/Layout/ToolbarTitle.vue'
 
@@ -82,10 +83,17 @@
 
 
   /*
+    stores
+  */
+  
+    const storeAuth = useStoreAuth()
+
+
+  /*
     tabs
   */
   
-    const tab = ref('login')
+    const tab = ref('register') // TODO: change this back to 'login'
 
 
   /*
@@ -120,7 +128,7 @@
 
     const formSubmitSuccess = () => {
       if (tab.value === 'register') {
-        console.log('Register user with these credentials:', credentials)
+        storeAuth.registerUser(credentials)
       }
       else {
         console.log('Login user with these credentials:', credentials)
