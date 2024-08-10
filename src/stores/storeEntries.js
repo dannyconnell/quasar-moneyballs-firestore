@@ -4,7 +4,7 @@ import { uid, Notify } from 'quasar'
 import { collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
-const entriesCollectionRef = collection(db, 'entries')
+const entriesCollectionRef = collection(db, 'users', '17LSeFcQpnNaUmpZyeYdvImifxi2', 'entries')
 
 export const useStoreEntries = defineStore('entries', () => {
 
