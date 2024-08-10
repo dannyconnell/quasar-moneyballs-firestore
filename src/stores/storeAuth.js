@@ -39,6 +39,7 @@ export const useStoreAuth = defineStore('auth', () => {
         } else {
           Object.assign(userDetails, userDetailsDefault)
           router.replace('/auth')
+          storeEntries.clearEntries()
         }
       })
     }
