@@ -5,7 +5,8 @@ import { useStoreAuth } from 'src/stores/storeAuth'
 import { collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
 
-let entriesCollectionRef = null
+let entriesCollectionRef = null,
+    getEntriesSnapshot = null
 
 export const useStoreEntries = defineStore('entries', () => {
 
@@ -99,7 +100,7 @@ export const useStoreEntries = defineStore('entries', () => {
 
     const loadEntries = async () => {
       entriesLoaded.value = false
-      onSnapshot(entriesCollectionRef, (querySnapshot) => {
+      getEntriesSnapshot = onSnapshot(entriesCollectionRef, (querySnapshot) => {
         let entriesFB = []
         querySnapshot.forEach((doc) => {
           let entry = doc.data()
@@ -111,8 +112,9 @@ export const useStoreEntries = defineStore('entries', () => {
       })
     }
 
-    const clearEntries = () => {
+    const clearAndStopEntries = () => {
       entries.value = []
+      if (getEntriesSnapshot) getEntriesSnapshot()
     }
 
     const addEntry = async addEntryForm => {
@@ -204,7 +206,7 @@ export const useStoreEntries = defineStore('entries', () => {
       // actions
       init,
       loadEntries,
-      clearEntries,
+      clearAndStopEntries,
       addEntry,
       deleteEntry,
       updateEntry,
