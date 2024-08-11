@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive, nextTick } from 'vue'
-import { Notify } from 'quasar'
+import { Notify, Dialog } from 'quasar'
 import { useStoreAuth } from 'src/stores/storeAuth'
 import { collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 import { db } from 'src/firebase/firebase'
@@ -94,8 +94,7 @@ export const useStoreEntries = defineStore('entries', () => {
   
     const init = () => {
       const storeAuth = useStoreAuth()
-      // entriesCollectionRef = collection(db, 'users', storeAuth.userDetails.id, 'entries')
-      entriesCollectionRef = collection(db, 'users', 'Bo0KNjtorXcF18tHMSnWBVy01mp2', 'entries')
+      entriesCollectionRef = collection(db, 'users', storeAuth.userDetails.id, 'entries')
       loadEntries()
     }
 
@@ -110,6 +109,11 @@ export const useStoreEntries = defineStore('entries', () => {
         })
         entries.value = entriesFB
         entriesLoaded.value = true
+      }, error => {
+        Dialog.create({
+          title: 'Error',
+          message: error.message
+        })
       })
     }
 
