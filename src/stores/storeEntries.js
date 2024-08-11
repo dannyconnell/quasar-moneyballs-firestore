@@ -94,7 +94,8 @@ export const useStoreEntries = defineStore('entries', () => {
   
     const init = () => {
       const storeAuth = useStoreAuth()
-      entriesCollectionRef = collection(db, 'users', storeAuth.userDetails.id, 'entries')
+      // entriesCollectionRef = collection(db, 'users', storeAuth.userDetails.id, 'entries')
+      entriesCollectionRef = collection(db, 'users', 'Bo0KNjtorXcF18tHMSnWBVy01mp2', 'entries')
       loadEntries()
     }
 
