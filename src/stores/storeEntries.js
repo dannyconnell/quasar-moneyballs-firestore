@@ -56,10 +56,6 @@ export const useStoreEntries = defineStore('entries', () => {
     getters
   */
   
-    const entriesOrdered = computed(() => {
-      return entries.value.sort((a, b) => a.order - b.order)
-    })
-
     const balance = computed(() => {
       return entries.value.reduce((accumulator, { amount }) => {
         return accumulator + amount
@@ -205,7 +201,6 @@ export const useStoreEntries = defineStore('entries', () => {
       options,
 
       // getters
-      entriesOrdered,
       balance,
       balancePaid,
       runningBalances,

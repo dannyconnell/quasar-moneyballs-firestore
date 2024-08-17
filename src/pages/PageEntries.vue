@@ -10,18 +10,18 @@
           enter-active-class="animated jackInTheBox slower"
         >
           <NothingHere
-            v-if="!storeEntries.entriesOrdered.length"
+            v-if="!storeEntries.entries.length"
           />
         </transition>
 
         <q-list
-          v-if="storeEntries.entriesOrdered.length"
+          v-if="storeEntries.entries.length"
           class="entries"
         >
 
           <Sortable
             @end="storeEntries.sortEnd"
-            :list="storeEntries.entriesOrdered"
+            :list="storeEntries.entries"
             :options="{ handle: '.handle' }"
             item-key="id"
             tag="div"
@@ -59,7 +59,7 @@
         enter-active-class="animated fadeInUp"
         leave-active-class="animated fadeOutDown"
       >
-        <Balance v-if="storeEntries.entriesOrdered.length" />
+        <Balance v-if="storeEntries.entries.length" />
       </transition>
       <AddEntry />
     </q-footer>
